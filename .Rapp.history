@@ -1,0 +1,168 @@
+x <- c(1,3,2,5)
+x
+x = c(1,6,2)
+x
+y = c(1,4,3)
+?funcname
+length(x)
+length(y)
+x+y
+ls()
+rm(x,y)
+ls()
+rm(list=ls())
+?matrix
+x = matrix(data=c(1,2,3,4), nrow=2, ncol=2)
+x
+matrix(c(1,2,3,4),2,2,byrow=TRUE)
+sqrt(x)
+x^2
+x=rnorm(50)
+y=x+rnorm(50,mean=50,sd=.1)
+cor(x,y)
+set.seed(1303)
+rnorm(50)
+set.seed(3)
+y=rnorm(100)
+mean(y)
+var(y)
+sqrt(var(y))
+sd(y)
+?plot
+x=rnorm(100)
+y=rnorm(100)
+plot(x,y)
+plot(x,y,xlab="this is the x-axis",ylab="this is the y-axis",main="Plot of X vs Y")
+pdf("Figure.pdf")
+plot(x,y,col="green")
+dev.off()
+x=seq(1,10)
+x
+x=1:10
+x
+x=seq(-pi,pi,length=50)
+y=x
+f=outer(x,y,function(x,y)cos(y)/(1+x^2))
+contour(x,y,f)
+contour(x,y,f,nlevels=45,add=T)
+fa=(f-t(f))/2
+contour(x,y,fa,nlevels=15)
+image(x,y,fa)
+persp(x,y,fa)
+persp(x,y,fa,theta=30)
+persp(x,y,fa,theta=30,phi=20)
+persp(xx,y,fa,theta=30,phi=70)
+persp(x,y,fa,theta=30,phi=70)
+persp(x,y,fa,theta=30,phi=40)
+A=matrix(1:16,4,4)
+A
+A[2,3]
+A[c(1,3),c(2,4)]
+A[1:3,2:4]
+A[1:2,]
+A[,1:2]
+A[1,]
+A[-c(1,3),]
+A[-c(1,3),-c(1,3,4)]
+dim(A)
+ls()
+ls()
+# Read data #
+d = read.csv("data/raw/counts_raw.csv", header=TRUE)#
+d = data.frame(d, row.names=1)#
+head(d)#
+#load library#
+library(optimbase)#
+library(IntClust)#
+#
+#Define Jaccard Similarity Index Function#
+jaccard_index <- function(col1, col2, k)#
+{#
+  s1 = data.frame(d[1:k,col1], row.names=rownames(d)[1:k])#
+  s2 = data.frame(d[1:k,col2], row.names=rownames(d)[1:k])#
+  colnames(s1) <- c("counts")#
+  colnames(s2) <- c("counts")#
+  sorted_1 = s1[order(s1$counts, decreasing=TRUE), ,drop=FALSE]#
+  sorted_2 = s2[order(s2$counts, decreasing=TRUE), ,drop=FALSE]#
+  s1_genes = rownames(sorted_1)#
+  s2_genes = rownames(sorted_2)##check that order of rownames here as same as sorted#
+  intersect = intersect(s1_genes, s2_genes)#
+  union = union(s1_genes, s2_genes)#
+  JSI = length(intersect)/length(union)#
+  return(JSI)#
+}#
+# Define increment function#
+inc <- function(x)#
+{#
+  eval.parent(substitute(x <- x + 100))#
+}#
+length(d)#
+#Initiate K#
+k = 100#
+#Save pdf#
+#pdf("plots/jaccard_heatmaps.pdf")#
+jsi_matrix <- ones(nx=length(d), ny=length(d))#
+for (i in seq(1, 16, 2))#
+{#
+  JSI <- jaccard_index(i, i+1, k)#
+  jsi_matrix[i,i+1] <- JSI#
+  jsi_matrix[i+1,i] <- JSI#
+  heatmap = heatmap(jsi_matrix, labRow= c("0hr","0hr.1","1hr","0hr.1","6hr","6hr.1","12hr","12hr.1","24hr","24hr.1","36hr","36hr.1","48hr","48hr.1","72hr","72hr.1"),#
+                    labCol= c("0hr","0hr.1","1hr","0hr.1","6hr","6hr.1","12hr","12hr.1","24hr","24hr.1","36hr","36hr.1","48hr","48hr.1","72hr","72hr.1"),#
+                    main=paste("Top", k, "Genes"), Rowv=NA, Colv=NA)#
+}#
+#inc(k)#
+dev.off()
+getwd
+getwd()
+setwd(/Users/user/Documents/R/Dissertation)
+setwd(Users/user/Documents/R/Dissertation)
+setwd(user/Documents/R/Dissertation)
+setwd("/Users/user/Documents/R/Dissertation")
+dev.off()
+# Read data #
+d = read.csv("data/raw/counts_raw.csv", header=TRUE)#
+d = data.frame(d, row.names=1)#
+head(d)#
+#load library#
+library(optimbase)#
+library(IntClust)#
+#
+#Define Jaccard Similarity Index Function#
+jaccard_index <- function(col1, col2, k)#
+{#
+  s1 = data.frame(d[1:k,col1], row.names=rownames(d)[1:k])#
+  s2 = data.frame(d[1:k,col2], row.names=rownames(d)[1:k])#
+  colnames(s1) <- c("counts")#
+  colnames(s2) <- c("counts")#
+  sorted_1 = s1[order(s1$counts, decreasing=TRUE), ,drop=FALSE]#
+  sorted_2 = s2[order(s2$counts, decreasing=TRUE), ,drop=FALSE]#
+  s1_genes = rownames(sorted_1)#
+  s2_genes = rownames(sorted_2)##check that order of rownames here as same as sorted#
+  intersect = intersect(s1_genes, s2_genes)#
+  union = union(s1_genes, s2_genes)#
+  JSI = length(intersect)/length(union)#
+  return(JSI)#
+}#
+# Define increment function#
+inc <- function(x)#
+{#
+  eval.parent(substitute(x <- x + 100))#
+}#
+length(d)#
+#Initiate K#
+k = 100#
+#Save pdf#
+#pdf("plots/jaccard_heatmaps.pdf")#
+jsi_matrix <- ones(nx=length(d), ny=length(d))#
+for (i in seq(1, 16, 2))#
+{#
+  JSI <- jaccard_index(i, i+1, k)#
+  jsi_matrix[i,i+1] <- JSI#
+  jsi_matrix[i+1,i] <- JSI#
+  heatmap = heatmap(jsi_matrix, labRow= c("0hr","0hr.1","1hr","0hr.1","6hr","6hr.1","12hr","12hr.1","24hr","24hr.1","36hr","36hr.1","48hr","48hr.1","72hr","72hr.1"),#
+                    labCol= c("0hr","0hr.1","1hr","0hr.1","6hr","6hr.1","12hr","12hr.1","24hr","24hr.1","36hr","36hr.1","48hr","48hr.1","72hr","72hr.1"),#
+                    main=paste("Top", k, "Genes"), Rowv=NA, Colv=NA)#
+}#
+#inc(k)#
+dev.off()

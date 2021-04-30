@@ -10,7 +10,7 @@ library(GGally)
 library(gprofiler2)
 
 # Reading & formatting the data 
-df = read.csv("data/processed/rpkm_normalised.csv", sep=',', header=TRUE,row.names=1)
+df = read.csv("data/processed/quantile_normalised_counts.csv", sep=',', header=TRUE,row.names=1)
 head(df)
 #df = df[,-17]
 df_log <- log(df+1)
@@ -53,6 +53,6 @@ qc.plots<-function(cts,title){
 }
 
 
-pdf("plots/density_plots_rpkm_normalised.pdf")
-qc.plots(df_log, "RPKM Normalised")
+pdf("plots/density_plots_quantile_normalised2.pdf")
+qc.plots(df_log, "Quantile Normalised 2")
 dev.off()

@@ -92,6 +92,6 @@ write.csv(simulated_data, "data/processed/simulated_data.csv")
 simulated_data <- read.csv("data/processed/simulated_data.csv", header=TRUE, row.names=1)
 simulated_data <- simulated_data[,-1]
 head(simulated_data)
-pdf('plots/ggpairs_simulated_data.pdf')
-ggpairs(simulated_data)
+pdf('plots/ggpairs_simulated_data_log.pdf')
+ggpairs(log(simulated_data))
 dev.off()
